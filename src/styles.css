@@ -1,0 +1,236 @@
+@import "tailwindcss";
+@import "../public/fonts/fonts.css";
+
+@theme {
+  --color-night: #160a24;
+  --color-cream: #fff4e8;
+  --color-pink: #ff2d95;
+  --color-cyan: #2de2e6;
+  --color-sun: #ffe14a;
+  --font-display: "Monoton", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+    background: var(--color-night);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+  }
+
+  body {
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+.grid-floor {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-cyan) 35%, transparent) 1px, transparent 1px),
+    linear-gradient(to top, color-mix(in oklab, var(--color-pink) 28%, transparent) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to top, black, transparent 78%);
+}
+
+.photo-frame {
+  transform: rotate(-3.5deg);
+  border: 6px solid var(--color-cream);
+  box-shadow: 8px 8px 0 var(--color-pink);
+  background: var(--color-cream);
+}
+
+.btn-pop {
+  box-shadow: 4px 4px 0 var(--color-pink);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.btn-pop:hover:not(:disabled) {
+  transform: translate(1px, 1px);
+  box-shadow: 3px 3px 0 var(--color-pink);
+}
+
+.btn-pop:active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--color-pink);
+}
+
+.btn-pop:disabled {
+  opacity: 0.45;
+}
+
+.kat-anchor {
+  position: absolute;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.kat-anchor img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 1px 0 rgb(20 8 28 / 0.55));
+  pointer-events: none;
+}
+
+.kat-anchor.is-dancing {
+  animation: kat-dance 0.55s steps(2, end) infinite;
+  z-index: 3;
+}
+
+.kat-slop {
+  position: absolute;
+}
+
+@keyframes kat-dance {
+  0% {
+    transform: translate(-50%, -50%) rotate(-8deg) scale(1, 1);
+  }
+  20% {
+    transform: translate(-50%, -62%) rotate(9deg) scale(1.04, 0.96);
+  }
+  40% {
+    transform: translate(-50%, -48%) rotate(-7deg) scale(0.96, 1.05);
+  }
+  60% {
+    transform: translate(-50%, -66%) rotate(11deg) scale(1.06, 0.94);
+  }
+  80% {
+    transform: translate(-50%, -50%) rotate(-10deg) scale(0.98, 1.04);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-8deg) scale(1, 1);
+  }
+}
+
+.nope-stamp {
+  position: absolute;
+  z-index: 4;
+  pointer-events: none;
+  animation: nope-pop 850ms ease forwards;
+  color: var(--color-sun);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-shadow: 2px 2px 0 var(--color-pink);
+  white-space: nowrap;
+}
+
+@keyframes nope-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5) rotate(-10deg);
+  }
+  18% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(-6deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -90%) scale(1) rotate(8deg);
+  }
+}
+
+.world-shake {
+  animation: shake 420ms linear;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-3px, 1px);
+  }
+  40% {
+    transform: translate(3px, -2px);
+  }
+  60% {
+    transform: translate(-2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -1px);
+  }
+}
+
+.vhs {
+  background: var(--color-night);
+  border: 5px solid var(--color-cream);
+  box-shadow: 8px 8px 0 var(--color-pink);
+}
+
+.dance-frame {
+  aspect-ratio: 47 / 76;
+  background: var(--color-night);
+}
+
+.scanlines {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgb(255 244 232 / 0.09) 0 1px,
+    transparent 1px 4px
+  );
+  mix-blend-mode: overlay;
+}
+
+.confetti-bit {
+  position: absolute;
+  top: -10%;
+  width: 8px;
+  height: 14px;
+  animation: confetti-fall 1.7s linear infinite;
+}
+
+@keyframes confetti-fall {
+  to {
+    transform: translateY(105vh) rotate(220deg);
+  }
+}
+
+.found-ring {
+  position: absolute;
+  inset: -18%;
+  border: 3px solid var(--color-sun);
+  border-radius: 999px;
+  animation: ring-pulse 0.7s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ring-pulse {
+  from {
+    transform: scale(0.85);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kat-anchor.is-dancing,
+  .nope-stamp,
+  .world-shake,
+  .confetti-bit,
+  .found-ring,
+  .photo-frame {
+    animation: none;
+  }
+
+  .confetti-bit {
+    display: none;
+  }
+
+  .btn-pop {
+    transition: none;
+  }
+}
